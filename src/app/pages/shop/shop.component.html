@@ -1,0 +1,415 @@
+<div class="bg-[#fbf9f4] dark:bg-[#0c1812] min-h-screen py-8 transition-colors">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Header Banner -->
+    <div class="relative rounded-3xl overflow-hidden bg-gradient-to-r from-[#12261b] via-[#1b4332] to-[#2d6a4f] text-white p-6 sm:p-10 mb-8 shadow-xl">
+      <div class="relative z-10 max-w-2xl space-y-2">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold">
+          <span>🌿</span> <span>BABU ORGANIC GARDEN BOTANICALS</span>
+        </div>
+        <h1 class="font-serif text-3xl sm:text-4xl font-bold tracking-tight">
+          {{ langService.isTamil() ? 'செடிகள் & கார்டன் உபகரணங்கள்' : 'Plants, Seeds & Gardening Supplies' }}
+        </h1>
+        <p class="text-xs sm:text-sm text-stone-200 leading-relaxed">
+          {{ langService.isTamil()
+            ? 'சென்னை காலநிலைக்கு ஏற்றவாறு இயற்கை உரம் மற்றும் வேப்ப எண்ணெயால் பராமரிக்கப்பட்ட செடிகள்.'
+            : 'Climate-tested plants, UV-stabilized grow bags and organic compost delivered safely to your doorstep.'
+          }}
+        </p>
+      </div>
+
+      <!-- Background leaf watermark -->
+      <div class="absolute -right-10 -bottom-10 w-64 h-64 text-emerald-400/10 pointer-events-none">
+        <svg viewBox="0 0 100 100" fill="currentColor">
+          <circle cx="50" cy="50" r="45"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Active Filter Chips & Bar -->
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+      <div class="flex items-center gap-2">
+        <!-- Mobile Filter Button -->
+        <button
+          type="button"
+          (click)="isMobileFiltersOpen.set(true)"
+          class="lg:hidden flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-800 border border-stone-200 dark:border-zinc-700 text-xs font-bold text-stone-800 dark:text-stone-200 shadow-xs">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+          </svg>
+          <span>Filters ({{ activeFilterCount() }})</span>
+        </button>
+
+        <span class="text-xs text-stone-500 font-medium">
+          Showing <strong class="text-stone-800 dark:text-stone-200 font-bold">{{ filteredProducts().length }}</strong> items
+        </span>
+      </div>
+
+      <!-- Sorting Select -->
+      <div class="flex items-center gap-2">
+        <label class="text-xs font-semibold text-stone-500 hidden sm:inline">{{ langService.t('sortBy') }}:</label>
+        <select
+          [ngModel]="sortBy()"
+          (ngModelChange)="sortBy.set($event)"
+          class="text-xs py-2 px-3 rounded-xl border border-stone-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-stone-800 dark:text-stone-200 focus:outline-hidden font-medium">
+          <option value="featured">{{ langService.t('featured') }}</option>
+          <option value="price-asc">{{ langService.t('priceLowHigh') }}</option>
+          <option value="price-desc">{{ langService.t('priceHighLow') }}</option>
+          <option value="rating">{{ langService.t('ratingHigh') }}</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Active Filters Row -->
+    <div *ngIf="activeFilterCount() > 0" class="flex flex-wrap items-center gap-2 mb-6">
+      <span class="text-xs font-semibold text-stone-500">Active Filters:</span>
+
+      <span *ngIf="selectedCategory() !== 'all'" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/70 text-emerald-800 dark:text-emerald-300 text-xs font-semibold">
+        <span>Category: {{ selectedCategory() }}</span>
+        <button (click)="selectedCategory.set('all')" class="hover:text-rose-600">✕</button>
+      </span>
+
+      <span *ngIf="selectedLight() !== 'all'" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-950/70 text-amber-800 dark:text-amber-300 text-xs font-semibold">
+        <span>Light: {{ selectedLight() }}</span>
+        <button (click)="selectedLight.set('all')" class="hover:text-rose-600">✕</button>
+      </span>
+
+      <span *ngIf="selectedPlacement() !== 'all'" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-100 dark:bg-teal-950/70 text-teal-800 dark:text-teal-300 text-xs font-semibold">
+        <span>Place: {{ selectedPlacement() }}</span>
+        <button (click)="selectedPlacement.set('all')" class="hover:text-rose-600">✕</button>
+      </span>
+
+      <span *ngIf="isPetSafeOnly()" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/70 text-emerald-800 dark:text-emerald-300 text-xs font-semibold">
+        <span>🐾 Pet-Safe Only</span>
+        <button (click)="isPetSafeOnly.set(false)" class="hover:text-rose-600">✕</button>
+      </span>
+
+      <span *ngIf="isInStockOnly()" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-200 dark:bg-zinc-700 text-stone-800 dark:text-stone-200 text-xs font-semibold">
+        <span>In Stock Only</span>
+        <button (click)="isInStockOnly.set(false)" class="hover:text-rose-600">✕</button>
+      </span>
+
+      <span *ngIf="maxPrice() < 1000" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-200 dark:bg-zinc-700 text-stone-800 dark:text-stone-200 text-xs font-semibold">
+        <span>Under ₹{{ maxPrice() }}</span>
+        <button (click)="maxPrice.set(1000)" class="hover:text-rose-600">✕</button>
+      </span>
+
+      <span *ngIf="searchQuery().trim()" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-200 dark:bg-zinc-700 text-stone-800 dark:text-stone-200 text-xs font-semibold">
+        <span>"{{ searchQuery() }}"</span>
+        <button (click)="searchQuery.set('')" class="hover:text-rose-600">✕</button>
+      </span>
+
+      <button
+        (click)="resetFilters()"
+        class="text-xs text-rose-600 dark:text-rose-400 hover:underline font-bold ml-2">
+        {{ langService.t('clearFilters') }}
+      </button>
+    </div>
+
+    <!-- Main Grid: Sidebar + Product Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+
+      <!-- ================= DESKTOP FILTER SIDEBAR ================= -->
+      <aside class="hidden lg:block space-y-6">
+        <div class="bg-white dark:bg-zinc-900 rounded-3xl p-6 border border-stone-200/90 dark:border-zinc-800 shadow-xs space-y-6">
+
+          <div class="flex items-center justify-between pb-3 border-b border-stone-100 dark:border-zinc-800">
+            <h2 class="font-serif text-lg font-bold text-stone-900 dark:text-stone-100">
+              {{ langService.t('filterBy') }}
+            </h2>
+            <button
+              *ngIf="activeFilterCount() > 0"
+              (click)="resetFilters()"
+              class="text-xs text-rose-600 dark:text-rose-400 hover:underline font-bold">
+              Reset
+            </button>
+          </div>
+
+          <!-- Category filter -->
+          <div class="space-y-2">
+            <h3 class="text-xs font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wider">
+              Category
+            </h3>
+            <div class="space-y-1 text-xs">
+              <label class="flex items-center justify-between p-2 rounded-xl hover:bg-stone-50 dark:hover:bg-zinc-800 cursor-pointer">
+                <span class="flex items-center gap-2">
+                  <input type="radio" name="category" [checked]="selectedCategory() === 'all'" (change)="selectedCategory.set('all')" class="text-emerald-600">
+                  <span class="font-medium text-stone-800 dark:text-stone-200">All Categories</span>
+                </span>
+                <span class="text-stone-400 font-semibold">{{ productService.products().length }}</span>
+              </label>
+
+              <label class="flex items-center justify-between p-2 rounded-xl hover:bg-stone-50 dark:hover:bg-zinc-800 cursor-pointer">
+                <span class="flex items-center gap-2">
+                  <input type="radio" name="category" [checked]="selectedCategory() === 'plants'" (change)="selectedCategory.set('plants')" class="text-emerald-600">
+                  <span class="font-medium text-stone-800 dark:text-stone-200">Live Plants</span>
+                </span>
+                <span class="text-stone-400 font-semibold">12</span>
+              </label>
+
+              <label class="flex items-center justify-between p-2 rounded-xl hover:bg-stone-50 dark:hover:bg-zinc-800 cursor-pointer">
+                <span class="flex items-center gap-2">
+                  <input type="radio" name="category" [checked]="selectedCategory() === 'growbags'" (change)="selectedCategory.set('growbags')" class="text-emerald-600">
+                  <span class="font-medium text-stone-800 dark:text-stone-200">Grow Bags (UV)</span>
+                </span>
+                <span class="text-stone-400 font-semibold">4</span>
+              </label>
+
+              <label class="flex items-center justify-between p-2 rounded-xl hover:bg-stone-50 dark:hover:bg-zinc-800 cursor-pointer">
+                <span class="flex items-center gap-2">
+                  <input type="radio" name="category" [checked]="selectedCategory() === 'soil'" (change)="selectedCategory.set('soil')" class="text-emerald-600">
+                  <span class="font-medium text-stone-800 dark:text-stone-200">Potting Soil & Compost</span>
+                </span>
+                <span class="text-stone-400 font-semibold">3</span>
+              </label>
+
+              <label class="flex items-center justify-between p-2 rounded-xl hover:bg-stone-50 dark:hover:bg-zinc-800 cursor-pointer">
+                <span class="flex items-center gap-2">
+                  <input type="radio" name="category" [checked]="selectedCategory() === 'stands'" (change)="selectedCategory.set('stands')" class="text-emerald-600">
+                  <span class="font-medium text-stone-800 dark:text-stone-200">Plant Stands</span>
+                </span>
+                <span class="text-stone-400 font-semibold">2</span>
+              </label>
+
+              <label class="flex items-center justify-between p-2 rounded-xl hover:bg-stone-50 dark:hover:bg-zinc-800 cursor-pointer">
+                <span class="flex items-center gap-2">
+                  <input type="radio" name="category" [checked]="selectedCategory() === 'gifts'" (change)="selectedCategory.set('gifts')" class="text-emerald-600">
+                  <span class="font-medium text-stone-800 dark:text-stone-200">Return Gifts</span>
+                </span>
+                <span class="text-stone-400 font-semibold">2</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Sunlight requirement filter -->
+          <div class="space-y-2 pt-3 border-t border-stone-100 dark:border-zinc-800">
+            <h3 class="text-xs font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wider">
+              {{ langService.t('lightLevel') }}
+            </h3>
+            <div class="space-y-1.5 text-xs">
+              <button
+                type="button"
+                (click)="selectedLight.set('all')"
+                [class.bg-emerald-50]="selectedLight() === 'all'"
+                [class.text-[#1b4332]]="selectedLight() === 'all'"
+                [class.font-bold]="selectedLight() === 'all'"
+                class="w-full text-left p-2 rounded-xl hover:bg-stone-50 dark:hover:bg-zinc-800 text-stone-700 dark:text-stone-300 transition">
+                All Light Conditions
+              </button>
+              <button
+                type="button"
+                (click)="selectedLight.set('bright-direct')"
+                [class.bg-emerald-50]="selectedLight() === 'bright-direct'"
+                [class.text-[#1b4332]]="selectedLight() === 'bright-direct'"
+                [class.font-bold]="selectedLight() === 'bright-direct'"
+                class="w-full text-left p-2 rounded-xl hover:bg-stone-50 dark:hover:bg-zinc-800 text-stone-700 dark:text-stone-300 transition flex items-center gap-2">
+                <span>☀️</span> <span>{{ langService.t('brightDirect') }}</span>
+              </button>
+              <button
+                type="button"
+                (click)="selectedLight.set('bright-indirect')"
+                [class.bg-emerald-50]="selectedLight() === 'bright-indirect'"
+                [class.text-[#1b4332]]="selectedLight() === 'bright-indirect'"
+                [class.font-bold]="selectedLight() === 'bright-indirect'"
+                class="w-full text-left p-2 rounded-xl hover:bg-stone-50 dark:hover:bg-zinc-800 text-stone-700 dark:text-stone-300 transition flex items-center gap-2">
+                <span>⛅</span> <span>{{ langService.t('brightIndirect') }}</span>
+              </button>
+              <button
+                type="button"
+                (click)="selectedLight.set('low-light')"
+                [class.bg-emerald-50]="selectedLight() === 'low-light'"
+                [class.text-[#1b4332]]="selectedLight() === 'low-light'"
+                [class.font-bold]="selectedLight() === 'low-light'"
+                class="w-full text-left p-2 rounded-xl hover:bg-stone-50 dark:hover:bg-zinc-800 text-stone-700 dark:text-stone-300 transition flex items-center gap-2">
+                <span>🌑</span> <span>{{ langService.t('lowLight') }}</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Placement filter -->
+          <div class="space-y-2 pt-3 border-t border-stone-100 dark:border-zinc-800">
+            <h3 class="text-xs font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wider">
+              {{ langService.t('placement') }}
+            </h3>
+            <div class="grid grid-cols-2 gap-1.5 text-xs">
+              <button
+                type="button"
+                (click)="selectedPlacement.set(selectedPlacement() === 'indoor' ? 'all' : 'indoor')"
+                [class.bg-[#1b4332]]="selectedPlacement() === 'indoor'"
+                [class.text-white]="selectedPlacement() === 'indoor'"
+                class="p-2 rounded-xl border border-stone-200 dark:border-zinc-700 text-center font-medium hover:border-emerald-600 transition">
+                Indoor
+              </button>
+              <button
+                type="button"
+                (click)="selectedPlacement.set(selectedPlacement() === 'balcony' ? 'all' : 'balcony')"
+                [class.bg-[#1b4332]]="selectedPlacement() === 'balcony'"
+                [class.text-white]="selectedPlacement() === 'balcony'"
+                class="p-2 rounded-xl border border-stone-200 dark:border-zinc-700 text-center font-medium hover:border-emerald-600 transition">
+                Balcony
+              </button>
+              <button
+                type="button"
+                (click)="selectedPlacement.set(selectedPlacement() === 'terrace' ? 'all' : 'terrace')"
+                [class.bg-[#1b4332]]="selectedPlacement() === 'terrace'"
+                [class.text-white]="selectedPlacement() === 'terrace'"
+                class="p-2 rounded-xl border border-stone-200 dark:border-zinc-700 text-center font-medium hover:border-emerald-600 transition col-span-2">
+                Terrace / Garden
+              </button>
+            </div>
+          </div>
+
+          <!-- Pet-Safe & In-Stock Toggles -->
+          <div class="space-y-3 pt-3 border-t border-stone-100 dark:border-zinc-800 text-xs">
+            <label class="flex items-center justify-between cursor-pointer">
+              <span class="flex items-center gap-2 font-semibold text-stone-800 dark:text-stone-200">
+                <span>🐾</span> <span>{{ langService.t('petSafe') }}</span>
+              </span>
+              <input
+                type="checkbox"
+                [ngModel]="isPetSafeOnly()"
+                (ngModelChange)="isPetSafeOnly.set($event)"
+                class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500">
+            </label>
+
+            <label class="flex items-center justify-between cursor-pointer">
+              <span class="font-semibold text-stone-800 dark:text-stone-200">
+                In Stock Only
+              </span>
+              <input
+                type="checkbox"
+                [ngModel]="isInStockOnly()"
+                (ngModelChange)="isInStockOnly.set($event)"
+                class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500">
+            </label>
+          </div>
+
+          <!-- Price Range Slider -->
+          <div class="space-y-2 pt-3 border-t border-stone-100 dark:border-zinc-800">
+            <div class="flex items-center justify-between text-xs font-bold">
+              <span class="text-stone-700 dark:text-stone-300">Max Price</span>
+              <span class="text-[#1b4332] dark:text-emerald-400 font-serif text-sm">₹{{ maxPrice() }}</span>
+            </div>
+            <input
+              type="range"
+              min="50"
+              max="1000"
+              step="25"
+              [ngModel]="maxPrice()"
+              (ngModelChange)="maxPrice.set($event)"
+              class="w-full accent-emerald-700 dark:accent-emerald-400">
+            <div class="flex justify-between text-[10px] text-stone-400">
+              <span>₹50</span>
+              <span>₹1000+</span>
+            </div>
+          </div>
+
+        </div>
+      </aside>
+
+      <!-- ================= PRODUCT CARDS GRID ================= -->
+      <main class="lg:col-span-3">
+
+        <!-- Empty Results View -->
+        <div *ngIf="filteredProducts().length === 0" class="p-12 text-center bg-white dark:bg-zinc-900 rounded-3xl border border-stone-200 dark:border-zinc-800 space-y-4">
+          <div class="text-4xl">🪴</div>
+          <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-stone-100">
+            No plants or items match your filters
+          </h3>
+          <p class="text-xs text-stone-500 max-w-sm mx-auto">
+            Try adjusting your sunlight or price filters, or reset all filters to view our full nursery catalog.
+          </p>
+          <button
+            type="button"
+            (click)="resetFilters()"
+            class="px-5 py-2.5 rounded-full bg-[#1b4332] text-white text-xs font-bold hover:bg-[#2d6a4f] transition">
+            {{ langService.t('clearFilters') }}
+          </button>
+        </div>
+
+        <!-- Populated Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+          <app-product-card
+            *ngFor="let item of filteredProducts()"
+            [product]="item"
+            (quickView)="openQuickView($event)">
+          </app-product-card>
+        </div>
+
+      </main>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- ================= MOBILE FILTER MODAL / DRAWER ================= -->
+<div *ngIf="isMobileFiltersOpen()" class="fixed inset-0 z-50 overflow-hidden lg:hidden">
+  <div class="absolute inset-0 bg-black/50 backdrop-blur-xs" (click)="isMobileFiltersOpen.set(false)"></div>
+
+  <div class="fixed inset-y-0 left-0 max-w-full flex pr-10">
+    <div class="w-screen max-w-xs bg-white dark:bg-zinc-900 shadow-2xl p-6 flex flex-col justify-between overflow-y-auto">
+
+      <div class="space-y-6">
+        <div class="flex items-center justify-between pb-3 border-b border-stone-200 dark:border-zinc-800">
+          <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-stone-100">
+            Filters
+          </h3>
+          <button (click)="isMobileFiltersOpen.set(false)" class="p-1 text-stone-400">✕</button>
+        </div>
+
+        <!-- Light -->
+        <div class="space-y-2">
+          <label class="text-xs font-bold text-stone-700 dark:text-stone-300">Light Condition</label>
+          <select
+            [ngModel]="selectedLight()"
+            (ngModelChange)="selectedLight.set($event)"
+            class="w-full text-xs p-2.5 rounded-xl border border-stone-200 dark:border-zinc-700 bg-stone-50 dark:bg-zinc-800">
+            <option value="all">All Light Conditions</option>
+            <option value="bright-direct">Bright Direct Sun</option>
+            <option value="bright-indirect">Bright Indirect Light</option>
+            <option value="low-light">Low Light / Shade</option>
+          </select>
+        </div>
+
+        <!-- Pet Safe -->
+        <label class="flex items-center justify-between text-xs font-semibold cursor-pointer">
+          <span>🐾 Pet-Safe Only</span>
+          <input type="checkbox" [ngModel]="isPetSafeOnly()" (ngModelChange)="isPetSafeOnly.set($event)" class="w-4 h-4 text-emerald-600">
+        </label>
+
+        <!-- Max Price -->
+        <div class="space-y-1">
+          <div class="flex justify-between text-xs font-bold">
+            <span>Max Price</span>
+            <span>₹{{ maxPrice() }}</span>
+          </div>
+          <input type="range" min="50" max="1000" step="25" [ngModel]="maxPrice()" (ngModelChange)="maxPrice.set($event)" class="w-full accent-emerald-700">
+        </div>
+      </div>
+
+      <div class="pt-6 border-t border-stone-200 dark:border-zinc-800 flex gap-2">
+        <button
+          type="button"
+          (click)="resetFilters(); isMobileFiltersOpen.set(false)"
+          class="flex-1 py-2.5 rounded-xl border border-stone-200 dark:border-zinc-700 text-xs font-semibold">
+          Reset
+        </button>
+        <button
+          type="button"
+          (click)="isMobileFiltersOpen.set(false)"
+          class="flex-1 py-2.5 rounded-xl bg-[#1b4332] text-white text-xs font-bold">
+          Apply
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Quick View Modal -->
+<app-quick-view-modal
+  *ngIf="selectedQuickViewProduct()"
+  [product]="selectedQuickViewProduct()!"
+  (close)="closeQuickView()">
+</app-quick-view-modal>

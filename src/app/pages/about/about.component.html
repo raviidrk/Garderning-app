@@ -1,0 +1,179 @@
+<div class="bg-[#fbf9f4] dark:bg-[#0c1812] min-h-screen py-10 transition-colors">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+
+    <!-- Top Navigation Tabs for About & Policies -->
+    <div class="flex items-center justify-center gap-2 overflow-x-auto pb-2">
+      <button
+        type="button"
+        (click)="setSection('story')"
+        [class.bg-[#1b4332]]="activeSection() === 'story'"
+        [class.text-white]="activeSection() === 'story'"
+        class="px-4 py-2 rounded-full text-xs font-bold border border-stone-300 dark:border-zinc-700 text-stone-700 dark:text-stone-300 hover:border-emerald-600 transition shrink-0">
+        Our Farm Story
+      </button>
+      <button
+        type="button"
+        (click)="setSection('shipping')"
+        [class.bg-[#1b4332]]="activeSection() === 'shipping'"
+        [class.text-white]="activeSection() === 'shipping'"
+        class="px-4 py-2 rounded-full text-xs font-bold border border-stone-300 dark:border-zinc-700 text-stone-700 dark:text-stone-300 hover:border-emerald-600 transition shrink-0">
+        {{ langService.t('shippingPolicy') }}
+      </button>
+      <button
+        type="button"
+        (click)="setSection('refund')"
+        [class.bg-[#1b4332]]="activeSection() === 'refund'"
+        [class.text-white]="activeSection() === 'refund'"
+        class="px-4 py-2 rounded-full text-xs font-bold border border-stone-300 dark:border-zinc-700 text-stone-700 dark:text-stone-300 hover:border-emerald-600 transition shrink-0">
+        {{ langService.t('refundPolicy') }}
+      </button>
+      <button
+        type="button"
+        (click)="setSection('privacy')"
+        [class.bg-[#1b4332]]="activeSection() === 'privacy'"
+        [class.text-white]="activeSection() === 'privacy'"
+        class="px-4 py-2 rounded-full text-xs font-bold border border-stone-300 dark:border-zinc-700 text-stone-700 dark:text-stone-300 hover:border-emerald-600 transition shrink-0">
+        {{ langService.t('privacyPolicy') }}
+      </button>
+      <button
+        type="button"
+        (click)="setSection('terms')"
+        [class.bg-[#1b4332]]="activeSection() === 'terms'"
+        [class.text-white]="activeSection() === 'terms'"
+        class="px-4 py-2 rounded-full text-xs font-bold border border-stone-300 dark:border-zinc-700 text-stone-700 dark:text-stone-300 hover:border-emerald-600 transition shrink-0">
+        {{ langService.t('termsConditions') }}
+      </button>
+    </div>
+
+    <!-- Main Content Card -->
+    <div class="bg-white dark:bg-zinc-900 rounded-3xl p-6 sm:p-10 border border-stone-200/90 dark:border-zinc-800 shadow-md">
+
+      <!-- SECTION 1: OUR STORY -->
+      <div *ngIf="activeSection() === 'story'" class="space-y-8 animate-in fade-in duration-200">
+        <div class="space-y-2">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/70 text-emerald-800 dark:text-emerald-300 text-xs font-bold">
+            <img src="/images/logo.jpg" alt="Logo" class="w-4 h-4 rounded-full object-cover">
+            <span>A FARM SUSTAINABILITY</span>
+          </div>
+          <h1 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-stone-100">
+            Nurturing Green Homes with Sustainable Organic Farming
+          </h1>
+          <p class="font-tamil text-base font-semibold text-emerald-700 dark:text-emerald-400">
+            பாபு ஆர்கானிக் கார்டன் — இயற்கை வேளாண்மை & தோட்டம்
+          </p>
+        </div>
+
+        <div class="prose dark:prose-invert max-w-none text-xs sm:text-sm text-stone-600 dark:text-stone-300 space-y-4 leading-relaxed">
+          <p>
+            Welcome to <strong>Babu Organic Garden — A Farm Sustainability</strong>. We are committed to natural, eco-friendly horticulture that makes sustainable organic gardening accessible to every home, apartment balcony, and terrace garden.
+          </p>
+
+          <p>
+            Every plant at Babu Organic Garden is nurtured under natural organic practices. We never use chemical forced-growth fertilizers; instead, we nurture our greens with cold-pressed neem cake, enriched vermicompost, and organic botanical tonics.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 pb-2">
+            <div class="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-100 dark:border-emerald-900/40">
+              <div class="text-2xl mb-1">🌱</div>
+              <h4 class="font-bold text-stone-900 dark:text-stone-100 text-sm">100% Acclimatized</h4>
+              <p class="text-xs text-stone-500 mt-1">Pre-conditioned to thrive naturally in sunny regional climates.</p>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-100 dark:border-amber-900/40">
+              <div class="text-2xl mb-1">📦</div>
+              <h4 class="font-bold text-stone-900 dark:text-stone-100 text-sm">Ventilated Live Packing</h4>
+              <p class="text-xs text-stone-500 mt-1">Moistened root balls and shock-resistant custom cartons.</p>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-teal-50 dark:bg-teal-950/40 border border-teal-100 dark:border-teal-900/40">
+              <div class="text-2xl mb-1">💬</div>
+              <h4 class="font-bold text-stone-900 dark:text-stone-100 text-sm">WhatsApp Care Support</h4>
+              <p class="text-xs text-stone-500 mt-1">Free lifetime organic plant parenting guidance in Tamil & English.</p>
+            </div>
+          </div>
+
+          <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-stone-100 pt-4">
+            Visit Our Organic Farm & Nursery
+          </h3>
+          <p>
+            We welcome plant enthusiasts, families, and terrace garden beginners to walk through our shaded organic beds. We are open all 7 days a week from <strong>8:00 AM to 8:30 PM</strong>.
+          </p>
+        </div>
+      </div>
+
+      <!-- SECTION 2: SHIPPING & PARCEL POLICY -->
+      <div *ngIf="activeSection() === 'shipping'" class="space-y-6 animate-in fade-in duration-200">
+        <h2 class="font-serif text-3xl font-bold text-stone-900 dark:text-stone-100">
+          {{ langService.t('shippingPolicy') }}
+        </h2>
+        <div class="text-xs sm:text-sm text-stone-600 dark:text-stone-300 space-y-4 leading-relaxed">
+          <p>
+            <strong>Local Delivery:</strong>
+            Orders are delivered promptly with same-day or 24-hour dispatch. Free delivery applies automatically to all orders above ₹499.
+          </p>
+          <p>
+            <strong>Tamil Nadu District Parcel Orders:</strong>
+            Parcel delivery has fully resumed across Coimbatore, Madurai, Trichy, Salem, Tirunelveli, Vellore, and all Tamil Nadu towns. Shipments are dispatched within 24 hours of placement via express parcel services. Delivery takes 2 to 4 business days.
+          </p>
+          <p>
+            <strong>Special Live Plant Packaging:</strong>
+            Plants are watered thoroughly with organic anti-shock tonic before packing. Root balls are protected in moisture-lock wraps, and pots are suspended in custom ventilated corrugated boxes to prevent soil spillage.
+          </p>
+        </div>
+      </div>
+
+      <!-- SECTION 3: REFUND & REPLACEMENT POLICY -->
+      <div *ngIf="activeSection() === 'refund'" class="space-y-6 animate-in fade-in duration-200">
+        <h2 class="font-serif text-3xl font-bold text-stone-900 dark:text-stone-100">
+          {{ langService.t('refundPolicy') }}
+        </h2>
+        <div class="text-xs sm:text-sm text-stone-600 dark:text-stone-300 space-y-4 leading-relaxed">
+          <p>
+            <strong>100% Live Arrival Safe Guarantee:</strong>
+            We take utmost pride in the health of our organic plants. If your plant arrives damaged, dehydrated, or with broken main stems due to transit delays, we offer an immediate <strong>100% free replacement or refund</strong>.
+          </p>
+          <p>
+            <strong>How to Claim:</strong>
+            Simply share a photo or short video of the unboxing to our WhatsApp or email at <strong>support&#64;babuorganicgarden.com</strong> within 48 hours of parcel delivery. Our supervisor will dispatch a replacement plant or process an instant refund.
+          </p>
+          <p>
+            <strong>Non-Plant Products (Tools, Grow Bags, Stands):</strong>
+            All physical gardening equipment carries a 7-day hassle-free return window if unused in original packaging.
+          </p>
+        </div>
+      </div>
+
+      <!-- SECTION 4: PRIVACY POLICY -->
+      <div *ngIf="activeSection() === 'privacy'" class="space-y-6 animate-in fade-in duration-200">
+        <h2 class="font-serif text-3xl font-bold text-stone-900 dark:text-stone-100">
+          {{ langService.t('privacyPolicy') }}
+        </h2>
+        <div class="text-xs sm:text-sm text-stone-600 dark:text-stone-300 space-y-4 leading-relaxed">
+          <p>
+            At Babu Organic Garden, we respect your personal privacy. We only collect the necessary customer details (name, delivery address, phone number) required to fulfill live plant parcel delivery and send order status notifications.
+          </p>
+          <p>
+            We never sell, rent, or trade your contact information to third parties. All online payments are handled securely through encrypted payment gateways.
+          </p>
+        </div>
+      </div>
+
+      <!-- SECTION 5: TERMS & CONDITIONS -->
+      <div *ngIf="activeSection() === 'terms'" class="space-y-6 animate-in fade-in duration-200">
+        <h2 class="font-serif text-3xl font-bold text-stone-900 dark:text-stone-100">
+          {{ langService.t('termsConditions') }}
+        </h2>
+        <div class="text-xs sm:text-sm text-stone-600 dark:text-stone-300 space-y-4 leading-relaxed">
+          <p>
+            By placing an order on Babu Organic Garden, you agree to our standard terms. As living biological entities, plants naturally vary in leaf pattern, branch structure, and seasonal flowering stage compared to reference studio photographs.
+          </p>
+          <p>
+            Our organic farm guarantees botanical authenticity and vigorous root health upon delivery.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

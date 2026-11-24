@@ -1,0 +1,153 @@
+<div
+  (click)="onQuickViewClick($event)"
+  class="group relative bg-white dark:bg-zinc-900 border border-stone-200/90 dark:border-zinc-800 rounded-3xl p-3 sm:p-4 flex flex-col justify-between shadow-xs hover:shadow-xl hover:border-emerald-600/40 dark:hover:border-emerald-500/40 transition-all duration-300 cursor-pointer">
+
+  <!-- Top Badges & Wishlist -->
+  <div class="relative w-full aspect-square rounded-2xl overflow-hidden bg-stone-50 dark:bg-zinc-800/60 mb-3">
+    <!-- Image with hover zoom -->
+    <img
+      [src]="product.image"
+      [alt]="product.name"
+      loading="lazy"
+      class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 ease-out">
+
+    <!-- Subtle Corner Nursery Authenticity Badge -->
+    <div class="absolute bottom-2 left-2 flex items-center gap-1.5 bg-[#1b4332]/95 backdrop-blur-xs text-[10px] text-emerald-200 font-bold px-2 py-0.5 rounded-full shadow-xs">
+      <img src="/images/logo.jpg" alt="Logo" class="w-3.5 h-3.5 rounded-full object-cover">
+      <span class="tracking-tight">BABU ORGANIC</span>
+    </div>
+
+    <!-- Product Tag (Bestseller / Chennai Special / etc.) -->
+    <div *ngIf="product.badge" class="absolute top-2 left-2">
+      <span
+        [ngClass]="{
+          'bg-emerald-700 text-white': product.badge === 'Bestseller',
+          'bg-amber-600 text-white': product.badge === 'Chennai Special',
+          'bg-teal-700 text-white': product.badge === 'Top Rated',
+          'bg-rose-600 text-white': product.badge === 'New',
+          'bg-indigo-700 text-white': product.badge === 'Fast Growing'
+        }"
+        class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full shadow-sm">
+        {{ product.badge }}
+      </span>
+    </div>
+
+    <!-- Wishlist Button -->
+    <button
+      type="button"
+      (click)="onToggleWishlist($event)"
+      [title]="wishlistService.isWishlisted(product.id) ? 'Remove from wishlist' : 'Add to wishlist'"
+      class="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-xs text-stone-600 dark:text-stone-300 flex items-center justify-center hover:scale-110 active:scale-95 transition shadow-xs">
+      <svg
+        class="w-4 h-4 transition-colors"
+        [class.text-rose-500]="wishlistService.isWishlisted(product.id)"
+        [class.fill-rose-500]="wishlistService.isWishlisted(product.id)"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+      </svg>
+    </button>
+
+    <!-- Quick View Overlay Button on Hover -->
+    <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 hidden sm:flex items-center justify-center pointer-events-none">
+      <span class="px-3 py-1.5 rounded-full bg-white/95 dark:bg-zinc-900/95 text-stone-900 dark:text-stone-100 text-xs font-bold shadow-lg flex items-center gap-1.5 transform translate-y-2 group-hover:translate-y-0 transition-transform">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+        </svg>
+        <span>{{ langService.t('quickView') }}</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- Content Section -->
+  <div class="flex-1 flex flex-col justify-between">
+    <div>
+      <!-- Rating and Care highlights -->
+      <div class="flex items-center justify-between text-xs mb-1">
+        <div class="flex items-center gap-1 text-amber-500 font-bold">
+          <span>★</span>
+          <span>{{ product.rating }}</span>
+          <span class="text-stone-400 font-normal text-[11px]">({{ product.reviewCount }})</span>
+        </div>
+
+        <!-- Care micro-tags -->
+        <div *ngIf="product.careInfo" class="flex items-center gap-1">
+          <!-- Pet Friendly -->
+          <span
+            *ngIf="product.careInfo.petSafe"
+            title="100% Pet-Safe Non-Toxic"
+            class="text-[10px] bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 font-semibold px-1.5 py-0.5 rounded-md flex items-center gap-0.5">
+            🐾 <span>Pet-safe</span>
+          </span>
+          <!-- Light -->
+          <span
+            [title]="product.careInfo.light"
+            class="text-[10px] bg-amber-50 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 font-semibold px-1.5 py-0.5 rounded-md flex items-center gap-0.5">
+            ☀️
+          </span>
+        </div>
+      </div>
+
+      <!-- Title & Tamil subtitle -->
+      <h3 class="font-bold text-sm sm:text-base text-stone-900 dark:text-stone-100 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors line-clamp-1">
+        {{ product.name }}
+      </h3>
+      <p class="text-xs text-emerald-800 dark:text-emerald-300/90 font-tamil font-medium line-clamp-1 mt-0.5">
+        {{ product.tamilName }}
+      </p>
+
+      <!-- Pot size if available -->
+      <p *ngIf="product.potSize" class="text-[11px] text-stone-500 dark:text-stone-400 mt-1">
+        📏 {{ product.potSize }}
+      </p>
+    </div>
+
+    <!-- Pricing, Pack Selector & Add to Cart -->
+    <div class="mt-3 pt-3 border-t border-stone-100 dark:border-zinc-800 space-y-2.5">
+      <!-- Price & Discount -->
+      <div class="flex items-baseline justify-between">
+        <div class="flex items-baseline gap-2">
+          <span class="font-serif text-lg sm:text-xl font-bold text-stone-900 dark:text-stone-100">
+            ₹{{ product.price }}
+          </span>
+          <span *ngIf="product.originalPrice > product.price" class="text-xs text-stone-400 line-through">
+            ₹{{ product.originalPrice }}
+          </span>
+        </div>
+        <span *ngIf="product.discountPercent > 0" class="text-[11px] font-extrabold text-emerald-700 dark:text-emerald-400 bg-emerald-100/70 dark:bg-emerald-950/70 px-2 py-0.5 rounded-md">
+          {{ product.discountPercent }}% {{ langService.t('off') }}
+        </span>
+      </div>
+
+      <!-- Pack Selector -->
+      <div (click)="$event.stopPropagation()" class="w-full">
+        <select
+          [ngModel]="selectedPack()"
+          (ngModelChange)="selectedPack.set($event)"
+          class="w-full text-xs py-1.5 px-2.5 rounded-xl border border-stone-200 dark:border-zinc-700 bg-stone-50 dark:bg-zinc-800 text-stone-800 dark:text-stone-200 focus:outline-hidden focus:border-emerald-600">
+          <option *ngFor="let pack of product.packOptions" [value]="pack">
+            {{ pack }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Add to Cart Button -->
+      <button
+        type="button"
+        (click)="onAddToCart($event)"
+        class="w-full py-2.5 px-3 rounded-xl bg-[#1b4332] text-white hover:bg-[#2d6a4f] active:scale-97 text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-sm"
+        [class.bg-emerald-600]="isAddedAnimation()">
+        <svg *ngIf="!isAddedAnimation()" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+        </svg>
+        <svg *ngIf="isAddedAnimation()" class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        <span>{{ isAddedAnimation() ? langService.t('addedToCart') : langService.t('addToCart') }}</span>
+      </button>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,801 @@
+<div class="relative overflow-hidden">
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="relative min-h-[580px] lg:min-h-[660px] flex items-center bg-gradient-to-b from-[#f7f4ec] via-[#fbf9f4] to-[#f4f0e6] dark:from-[#09150e] dark:via-[#0e1f16] dark:to-[#09150e] overflow-hidden pt-8 pb-16 transition-colors">
+
+    <!-- Floating Leaf Shapes (Decorative Background Elements) -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+      <!-- Leaf 1 Top Left -->
+      <div class="absolute -top-10 -left-10 w-64 h-64 text-emerald-800/10 dark:text-emerald-400/5 animate-float-leaf">
+        <svg viewBox="0 0 200 200" fill="currentColor">
+          <path d="M40 100 C40 30 110 20 160 40 C170 110 130 170 60 160 C30 140 40 120 40 100 Z"/>
+        </svg>
+      </div>
+
+      <!-- Leaf 2 Right Center -->
+      <div class="absolute top-1/4 -right-16 w-80 h-80 text-emerald-700/10 dark:text-emerald-500/5 animate-float-leaf-reverse">
+        <svg viewBox="0 0 200 200" fill="currentColor">
+          <path d="M100 20 C160 20 180 80 160 140 C120 180 60 170 30 120 C10 80 50 30 100 20 Z"/>
+        </svg>
+      </div>
+
+      <!-- Soft gradient glows -->
+      <div class="absolute top-1/3 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute bottom-10 right-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+        <!-- Hero Left Text: Line-by-Line Reveal -->
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+
+          <!-- Trust Badge -->
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100/80 dark:bg-emerald-950/70 border border-emerald-300 dark:border-emerald-800 text-emerald-900 dark:text-emerald-300 text-xs font-bold tracking-wide shadow-xs">
+            <span class="animate-pulse">🌱</span>
+            <span>{{ langService.t('heroBadge') }}</span>
+          </div>
+
+          <!-- Main Serif Headline -->
+          <div class="space-y-1">
+            <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#1b4332] dark:text-emerald-400 leading-[1.12]">
+              {{ langService.t('heroTitle') }}
+            </h1>
+            <p *ngIf="!langService.isTamil()" class="font-tamil text-xl sm:text-2xl font-semibold text-emerald-800/80 dark:text-emerald-300/80 pt-1">
+              சென்னையின் பசுமை உங்கள் இல்லத்தில் மலரட்டும்
+            </p>
+          </div>
+
+          <!-- Subtitle -->
+          <p class="text-sm sm:text-base text-stone-600 dark:text-stone-300 max-w-2xl leading-relaxed mx-auto lg:mx-0">
+            {{ langService.t('heroSubtitle') }}
+          </p>
+
+          <!-- CTAs -->
+          <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3.5 pt-2">
+            <a
+              routerLink="/shop"
+              class="px-7 py-3.5 rounded-2xl bg-[#1b4332] text-white hover:bg-[#2d6a4f] text-sm font-bold shadow-lg shadow-emerald-950/25 hover:shadow-xl transition-all duration-300 flex items-center gap-2 group active:scale-98">
+              <span>{{ langService.t('heroShopBtn') }}</span>
+              <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+              </svg>
+            </a>
+
+            <a
+              routerLink="/shop"
+              [queryParams]="{category: 'growbags'}"
+              class="px-6 py-3.5 rounded-2xl bg-white dark:bg-zinc-800/90 border border-stone-300 dark:border-zinc-700 text-stone-800 dark:text-stone-200 hover:border-emerald-600 dark:hover:border-emerald-400 text-sm font-semibold transition-all duration-300 shadow-xs hover:shadow-md">
+              {{ langService.t('heroOffersBtn') }}
+            </a>
+          </div>
+
+          <!-- Trust Signals Row -->
+          <div class="pt-4 grid grid-cols-3 gap-2 sm:gap-4 max-w-lg mx-auto lg:mx-0 text-left border-t border-stone-200/80 dark:border-zinc-800">
+            <div class="flex items-center gap-2">
+              <span class="text-xl">🌿</span>
+              <div class="text-[11px] leading-tight text-stone-600 dark:text-stone-400">
+                <strong class="block text-stone-900 dark:text-stone-100 font-bold">100% Live</strong> Arrival Safe
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xl">🚚</span>
+              <div class="text-[11px] leading-tight text-stone-600 dark:text-stone-400">
+                <strong class="block text-stone-900 dark:text-stone-100 font-bold">Chennai Fast</strong> Free on ₹499
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xl">⭐</span>
+              <div class="text-[11px] leading-tight text-stone-600 dark:text-stone-400">
+                <strong class="block text-stone-900 dark:text-stone-100 font-bold">4.9 / 5</strong> 4.5k+ Gardeners
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Hero Right: Cutout Botanical Showcase with Floating Cards -->
+        <div class="lg:col-span-5 relative flex justify-center">
+          <div class="relative w-full max-w-md">
+
+            <!-- Main Plant Image in Organic Frame -->
+            <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white dark:border-zinc-800 bg-stone-100 dark:bg-zinc-800 aspect-4/5 group">
+              <img
+                src="https://images.unsplash.com/photo-1614594975525-e45190c55d0b?w=800&auto=format&fit=crop&q=80"
+                alt="Babu Organic Garden Fresh Plants"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+
+              <!-- Gradient overlay at bottom -->
+              <div class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-5 flex flex-col justify-end text-white">
+                <div class="flex items-center gap-1.5 text-xs font-bold text-emerald-300">
+                  <span>★ 4.9 Bestseller</span>
+                  <span>•</span>
+                  <span>Babu Organic Farm Grown</span>
+                </div>
+                <div class="font-serif text-xl font-bold">Monstera Deliciosa (6" Pot)</div>
+                <div class="text-xs text-stone-200">₹349 <span class="line-through text-stone-400 text-[10px]">₹450</span> (22% off)</div>
+              </div>
+            </div>
+
+            <!-- Floating Pill 1: Chennai Climate Tested -->
+            <div class="absolute -top-4 -left-4 sm:-left-6 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md p-3 rounded-2xl shadow-xl border border-stone-200 dark:border-zinc-800 flex items-center gap-3 animate-float-leaf">
+              <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-950/70 text-amber-700 dark:text-amber-300 flex items-center justify-center text-lg">
+                ☀️
+              </div>
+              <div>
+                <div class="text-xs font-bold text-stone-900 dark:text-stone-100">Chennai Tested</div>
+                <div class="text-[10px] text-stone-500">Withstands summer heat</div>
+              </div>
+            </div>
+
+            <!-- Floating Pill 2: Same-day Dispatch -->
+            <div class="absolute -bottom-4 -right-4 sm:-right-6 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md p-3 rounded-2xl shadow-xl border border-stone-200 dark:border-zinc-800 flex items-center gap-3 animate-float-leaf-reverse">
+              <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/70 text-emerald-800 dark:text-emerald-300 flex items-center justify-center text-lg">
+                📦
+              </div>
+              <div>
+                <div class="text-xs font-bold text-stone-900 dark:text-stone-100">Live Parcel Safe</div>
+                <div class="text-[10px] text-emerald-600 font-semibold">Special ventilated box</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== HOW TO ORDER INTERACTIVE VIDEO SECTION ==================== -->
+  <section class="py-12 bg-white dark:bg-zinc-900 border-y border-stone-200/80 dark:border-zinc-800 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-gradient-to-br from-[#12261b] via-[#1b4332] to-[#2d6a4f] rounded-3xl p-6 sm:p-10 text-white relative overflow-hidden shadow-xl">
+
+        <!-- Background pattern -->
+        <div class="absolute right-0 top-0 bottom-0 w-1/3 opacity-10 pointer-events-none">
+          <svg viewBox="0 0 100 100" class="w-full h-full" fill="currentColor">
+            <circle cx="50" cy="50" r="40"/>
+          </svg>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+
+          <!-- Left description -->
+          <div class="lg:col-span-7 space-y-4">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold">
+              <span>▶</span> <span>1-MINUTE QUICK GUIDE</span>
+            </div>
+
+            <h2 class="font-serif text-3xl sm:text-4xl font-bold tracking-tight">
+              {{ langService.t('howToOrderTitle') }}
+            </h2>
+
+            <p class="font-tamil text-xl text-amber-300 font-bold">
+              {{ langService.t('howToOrderTamilHeading') }}
+            </p>
+
+            <p class="text-xs sm:text-sm text-stone-200 leading-relaxed max-w-xl">
+              {{ langService.isTamil()
+                ? 'எங்கள் இணையதளத்தில் உங்களுக்கு பிடித்த செடிகள், விதைகள், குரோ பேக்குகளை தேர்வு செய்து ஆர்டர் செய்வது எப்படி என்பதை எளிய தமிழில் விளக்கும் காணொளி.'
+                : 'Learn how to easily pick healthy plants, customized soil mixes, and track your live parcel delivery from our organic nursery.'
+              }}
+            </p>
+
+            <div class="flex flex-wrap items-center gap-3 pt-2">
+              <button
+                type="button"
+                (click)="openVideoModal()"
+                class="px-5 py-3 rounded-xl bg-white text-[#1b4332] hover:bg-emerald-50 text-xs font-bold transition flex items-center gap-2 shadow-md">
+                <span class="w-5 h-5 rounded-full bg-[#1b4332] text-white flex items-center justify-center text-[10px]">▶</span>
+                <span>Watch Video Guide (Tamil)</span>
+              </button>
+
+              <a
+                href="https://api.whatsapp.com/send?text=Vanakkam%20Babu%20Organic%20Garden!%20I%20would%20like%20to%20order%20plants."
+                target="_blank"
+                rel="noreferrer"
+                class="px-5 py-3 rounded-xl bg-[#25D366] text-white hover:bg-[#20ba59] text-xs font-bold transition flex items-center gap-2 shadow-md">
+                <span>💬</span>
+                <span>Order via WhatsApp</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Video Card Preview -->
+          <div class="lg:col-span-5 flex justify-center">
+            <div
+              (click)="openVideoModal()"
+              class="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-emerald-400/40 cursor-pointer group aspect-video w-full max-w-md bg-stone-900">
+              <img
+                src="https://images.unsplash.com/photo-1592841200221-a6898f307baa?w=600&auto=format&fit=crop&q=80"
+                alt="How to order video preview"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90">
+
+              <!-- Play button overlay -->
+              <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center p-4 text-center">
+                <div class="w-16 h-16 rounded-full bg-emerald-500 text-white flex items-center justify-center text-2xl shadow-xl group-hover:scale-115 transition-transform">
+                  ▶
+                </div>
+                <div class="mt-3 font-serif font-bold text-lg text-white">
+                  ஆர்டர் செய்வது எப்படி?
+                </div>
+                <div class="text-[11px] text-emerald-200">
+                  Click to play 1-minute walkthrough
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 16 DISCOVERY CATEGORIES ==================== -->
+  <section class="py-16 bg-[#fbf9f4] dark:bg-[#0c1812] transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-stone-100">
+          {{ langService.t('categoriesTitle') }}
+        </h2>
+        <p class="text-sm text-stone-600 dark:text-stone-400 mt-2">
+          {{ langService.t('categoriesSub') }}
+        </p>
+      </div>
+
+      <!-- Grid of 16 Circular / Soft Rounded Category Tiles -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 sm:gap-6">
+        <a
+          *ngFor="let cat of productService.categories()"
+          routerLink="/shop"
+          [queryParams]="{category: cat.slug}"
+          class="group flex flex-col items-center text-center p-3 rounded-2xl bg-white dark:bg-zinc-900 border border-stone-200/90 dark:border-zinc-800 shadow-xs hover:shadow-xl hover:-translate-y-1.5 hover:border-emerald-600/50 dark:hover:border-emerald-500/50 transition-all duration-300">
+
+          <!-- Circular photo with gradient border -->
+          <div class="w-18 h-18 sm:w-20 sm:h-20 rounded-full p-1 bg-gradient-to-tr from-emerald-600 to-amber-500 mb-2.5 overflow-hidden shadow-xs group-hover:rotate-3 transition-transform">
+            <img
+              [src]="cat.image"
+              [alt]="cat.name"
+              loading="lazy"
+              class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-300">
+          </div>
+
+          <!-- Name -->
+          <span class="text-xs font-bold text-stone-800 dark:text-stone-200 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors line-clamp-1">
+            {{ cat.name }}
+          </span>
+
+          <!-- Tamil Name -->
+          <span class="text-[11px] text-emerald-800 dark:text-emerald-300 font-tamil line-clamp-1">
+            {{ cat.tamilName }}
+          </span>
+
+          <span class="text-[10px] text-stone-400 mt-1 font-medium">
+            {{ cat.count }}+ items
+          </span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== LATEST PRODUCTS & FEATURED CAROUSEL/GRID ==================== -->
+  <section class="py-16 bg-white dark:bg-zinc-900 border-y border-stone-200/80 dark:border-zinc-800 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Section Header with Category Tabs -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+        <div>
+          <div class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-widest mb-1">
+            <span>🌿</span> <span>NURSERY FRESH</span>
+          </div>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-stone-100">
+            {{ langService.t('latestArrivals') }}
+          </h2>
+          <p class="text-xs sm:text-sm text-stone-500 dark:text-stone-400 mt-1">
+            {{ langService.t('latestArrivalsSub') }}
+          </p>
+        </div>
+
+        <!-- Filter tabs -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0">
+          <button
+            type="button"
+            (click)="activeTab.set('all')"
+            [class.bg-[#1b4332]]="activeTab() === 'all'"
+            [class.text-white]="activeTab() === 'all'"
+            class="px-3.5 py-1.5 rounded-full text-xs font-bold border border-stone-300 dark:border-zinc-700 text-stone-700 dark:text-stone-300 hover:border-emerald-600 transition shrink-0">
+            All Fresh Arrivals
+          </button>
+          <button
+            type="button"
+            (click)="activeTab.set('indoor')"
+            [class.bg-[#1b4332]]="activeTab() === 'indoor'"
+            [class.text-white]="activeTab() === 'indoor'"
+            class="px-3.5 py-1.5 rounded-full text-xs font-bold border border-stone-300 dark:border-zinc-700 text-stone-700 dark:text-stone-300 hover:border-emerald-600 transition shrink-0">
+            Indoor Air Purifiers
+          </button>
+          <button
+            type="button"
+            (click)="activeTab.set('flowering')"
+            [class.bg-[#1b4332]]="activeTab() === 'flowering'"
+            [class.text-white]="activeTab() === 'flowering'"
+            class="px-3.5 py-1.5 rounded-full text-xs font-bold border border-stone-300 dark:border-zinc-700 text-stone-700 dark:text-stone-300 hover:border-emerald-600 transition shrink-0">
+            Flowering & Scented
+          </button>
+          <button
+            type="button"
+            (click)="activeTab.set('terrace')"
+            [class.bg-[#1b4332]]="activeTab() === 'terrace'"
+            [class.text-white]="activeTab() === 'terrace'"
+            class="px-3.5 py-1.5 rounded-full text-xs font-bold border border-stone-300 dark:border-zinc-700 text-stone-700 dark:text-stone-300 hover:border-emerald-600 transition shrink-0">
+            Terrace & Grow Bags
+          </button>
+        </div>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <app-product-card
+          *ngFor="let item of filteredProducts()"
+          [product]="item"
+          (quickView)="openQuickView($event)">
+        </app-product-card>
+      </div>
+
+      <div class="mt-10 text-center">
+        <a
+          routerLink="/shop"
+          class="inline-flex items-center gap-2 px-8 py-3.5 rounded-2xl bg-stone-100 dark:bg-zinc-800 hover:bg-[#1b4332] hover:text-white dark:hover:bg-emerald-600 font-bold text-xs sm:text-sm text-stone-800 dark:text-stone-200 transition-all shadow-xs hover:shadow-md">
+          <span>{{ langService.isTamil() ? 'அனைத்து செடிகளையும் பார்க்க' : 'View Full Nursery Catalog' }} (120+ Items)</span>
+          <span>→</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== RETURN GIFTS FOR SPECIAL OCCASIONS PROMO ==================== -->
+  <section class="py-12 bg-[#faebe5] dark:bg-[#1c1310] border-b border-rose-200/60 dark:border-rose-950/60 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-white dark:bg-zinc-900 rounded-3xl p-6 sm:p-10 border border-[#b85d38]/20 shadow-xl flex flex-col lg:flex-row items-center justify-between gap-8">
+
+        <div class="space-y-4 max-w-xl text-center lg:text-left">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#faebe5] dark:bg-rose-950/50 text-[#b85d38] dark:text-rose-300 text-xs font-bold uppercase tracking-wider">
+            <span>🎁</span> <span>BABU ORGANIC & CHENNAI SPECIAL</span>
+          </div>
+
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-stone-100">
+            {{ langService.t('giftPromoTitle') }}
+          </h2>
+
+          <p class="text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
+            {{ langService.t('giftPromoSub') }}
+          </p>
+
+          <ul class="text-xs text-stone-600 dark:text-stone-300 space-y-1.5 pt-1">
+            <li class="flex items-center gap-2 justify-center lg:justify-start">
+              <span class="text-emerald-600 font-bold">✓</span>
+              <span>Personalized thank-you tags in Tamil / English with bride & groom names</span>
+            </li>
+            <li class="flex items-center gap-2 justify-center lg:justify-start">
+              <span class="text-emerald-600 font-bold">✓</span>
+              <span>Handcrafted earthen terracotta pots or jute sleeves</span>
+            </li>
+            <li class="flex items-center gap-2 justify-center lg:justify-start">
+              <span class="text-emerald-600 font-bold">✓</span>
+              <span>Free doorstep venue delivery across Chennai for orders 50+ pots</span>
+            </li>
+          </ul>
+
+          <div class="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-3">
+            <button
+              type="button"
+              (click)="openGiftModal()"
+              class="px-6 py-3 rounded-xl bg-[#b85d38] text-white hover:bg-[#a34e2c] text-xs font-bold transition shadow-md">
+              {{ langService.t('giftPromoBtn') }}
+            </button>
+
+            <a
+              [href]="getWhatsAppGiftInquiry()"
+              target="_blank"
+              rel="noreferrer"
+              class="px-5 py-3 rounded-xl bg-[#25D366] text-white hover:bg-[#20ba59] text-xs font-bold transition flex items-center gap-2 shadow-md">
+              <span>💬</span> <span>WhatsApp Bulk Pricing</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="relative w-full max-w-sm shrink-0">
+          <div class="aspect-4/3 rounded-2xl overflow-hidden shadow-lg border border-stone-200 dark:border-zinc-800">
+            <img
+              src="https://images.unsplash.com/photo-1509423350716-97f9360b4e09?w=600&auto=format&fit=crop&q=80"
+              alt="Miniature Jade Return Gifts"
+              class="w-full h-full object-cover">
+          </div>
+          <div class="absolute -bottom-3 -right-3 bg-white dark:bg-zinc-800 px-3.5 py-1.5 rounded-xl shadow-lg border border-stone-200 dark:border-zinc-700 text-xs font-bold text-[#b85d38]">
+            Starting ₹65 / pot
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== GARDEN DECOR & CARE STARTER-PRICE TILES ==================== -->
+  <section class="py-16 bg-[#fbf9f4] dark:bg-[#0c1812] transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-stone-100">
+          {{ langService.t('gardenDecorTitle') }}
+        </h2>
+        <p class="text-xs sm:text-sm text-stone-500 dark:text-stone-400 mt-2">
+          {{ langService.t('gardenDecorSub') }}
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <a
+          *ngFor="let deal of productService.starterDeals()"
+          routerLink="/shop"
+          [queryParams]="{category: deal.category}"
+          class="group rounded-3xl overflow-hidden bg-white dark:bg-zinc-900 border border-stone-200/90 dark:border-zinc-800 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
+
+          <div class="h-44 overflow-hidden relative bg-stone-100 dark:bg-zinc-800">
+            <img
+              [src]="deal.image"
+              [alt]="deal.title"
+              class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500">
+            <div class="absolute top-3 left-3 bg-[#1b4332] text-white text-[11px] font-extrabold px-2.5 py-0.5 rounded-full shadow-xs">
+              Starting ₹{{ deal.startingPrice }}
+            </div>
+          </div>
+
+          <div class="p-4 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="font-bold text-sm sm:text-base text-stone-900 dark:text-stone-100 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">
+                {{ deal.title }}
+              </h3>
+              <p class="text-xs text-emerald-800 dark:text-emerald-300 font-tamil mt-0.5">
+                {{ deal.tamilTitle }}
+              </p>
+            </div>
+
+            <div class="mt-4 flex items-center justify-between text-xs font-bold text-[#1b4332] dark:text-emerald-400 pt-2 border-t border-stone-100 dark:border-zinc-800">
+              <span>View Options</span>
+              <span class="group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== ANIMATED STATS COUNTER STRIP ==================== -->
+  <section class="py-12 bg-gradient-to-r from-[#12261b] via-[#1b4332] to-[#2d6a4f] text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+
+        <div class="space-y-1">
+          <div class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-emerald-300">
+            15,000+
+          </div>
+          <div class="text-xs sm:text-sm text-stone-200">
+            {{ langService.t('statDelivered') }}
+          </div>
+        </div>
+
+        <div class="space-y-1">
+          <div class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-amber-300">
+            4,500+
+          </div>
+          <div class="text-xs sm:text-sm text-stone-200">
+            {{ langService.t('statGardeners') }}
+          </div>
+        </div>
+
+        <div class="space-y-1">
+          <div class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-emerald-300">
+            120+
+          </div>
+          <div class="text-xs sm:text-sm text-stone-200">
+            {{ langService.t('statVarieties') }}
+          </div>
+        </div>
+
+        <div class="space-y-1">
+          <div class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-teal-300">
+            100%
+          </div>
+          <div class="text-xs sm:text-sm text-stone-200">
+            {{ langService.t('statGuarantee') }}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== "HERE'S HOW IT WORKS" 4-STEP ROW ==================== -->
+  <section class="py-16 bg-white dark:bg-zinc-900 border-b border-stone-200/80 dark:border-zinc-800 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-stone-100">
+          {{ langService.t('howItWorksTitle') }}
+        </h2>
+        <p class="text-xs sm:text-sm text-stone-500 dark:text-stone-400 mt-2">
+          {{ langService.t('howItWorksSub') }}
+        </p>
+      </div>
+
+      <!-- 4 Connected Steps -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+
+        <!-- Step 1 -->
+        <div class="flex flex-col items-center text-center p-6 rounded-3xl bg-stone-50 dark:bg-zinc-800/50 border border-stone-200/80 dark:border-zinc-700/60 relative group hover:shadow-lg transition">
+          <div class="w-14 h-14 rounded-2xl bg-[#1b4332] text-white flex items-center justify-center text-2xl mb-4 shadow-md group-hover:scale-110 transition-transform">
+            🌱
+          </div>
+          <span class="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-widest mb-1">
+            STEP 01
+          </span>
+          <h3 class="font-bold text-base text-stone-900 dark:text-stone-100">
+            {{ langService.t('step1Title') }}
+          </h3>
+          <p class="text-xs text-stone-600 dark:text-stone-400 mt-2 leading-relaxed">
+            {{ langService.t('step1Desc') }}
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="flex flex-col items-center text-center p-6 rounded-3xl bg-stone-50 dark:bg-zinc-800/50 border border-stone-200/80 dark:border-zinc-700/60 relative group hover:shadow-lg transition">
+          <div class="w-14 h-14 rounded-2xl bg-amber-600 text-white flex items-center justify-center text-2xl mb-4 shadow-md group-hover:scale-110 transition-transform">
+            🪴
+          </div>
+          <span class="text-[10px] font-bold text-amber-700 dark:text-amber-400 uppercase tracking-widest mb-1">
+            STEP 02
+          </span>
+          <h3 class="font-bold text-base text-stone-900 dark:text-stone-100">
+            {{ langService.t('step2Title') }}
+          </h3>
+          <p class="text-xs text-stone-600 dark:text-stone-400 mt-2 leading-relaxed">
+            {{ langService.t('step2Desc') }}
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="flex flex-col items-center text-center p-6 rounded-3xl bg-stone-50 dark:bg-zinc-800/50 border border-stone-200/80 dark:border-zinc-700/60 relative group hover:shadow-lg transition">
+          <div class="w-14 h-14 rounded-2xl bg-teal-700 text-white flex items-center justify-center text-2xl mb-4 shadow-md group-hover:scale-110 transition-transform">
+            📦
+          </div>
+          <span class="text-[10px] font-bold text-teal-700 dark:text-teal-400 uppercase tracking-widest mb-1">
+            STEP 03
+          </span>
+          <h3 class="font-bold text-base text-stone-900 dark:text-stone-100">
+            {{ langService.t('step3Title') }}
+          </h3>
+          <p class="text-xs text-stone-600 dark:text-stone-400 mt-2 leading-relaxed">
+            {{ langService.t('step3Desc') }}
+          </p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="flex flex-col items-center text-center p-6 rounded-3xl bg-stone-50 dark:bg-zinc-800/50 border border-stone-200/80 dark:border-zinc-700/60 relative group hover:shadow-lg transition">
+          <div class="w-14 h-14 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-2xl mb-4 shadow-md group-hover:scale-110 transition-transform">
+            🌿
+          </div>
+          <span class="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-widest mb-1">
+            STEP 04
+          </span>
+          <h3 class="font-bold text-base text-stone-900 dark:text-stone-100">
+            {{ langService.t('step4Title') }}
+          </h3>
+          <p class="text-xs text-stone-600 dark:text-stone-400 mt-2 leading-relaxed">
+            {{ langService.t('step4Desc') }}
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== REVIEWS / TESTIMONIALS ==================== -->
+  <section class="py-16 bg-[#fbf9f4] dark:bg-[#0c1812] transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-stone-100">
+          {{ langService.t('reviewsTitle') }}
+        </h2>
+        <p class="text-xs sm:text-sm text-stone-500 dark:text-stone-400 mt-2">
+          {{ langService.t('reviewsSub') }}
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div *ngFor="let rev of reviews()" class="p-6 rounded-3xl bg-white dark:bg-zinc-900 border border-stone-200/90 dark:border-zinc-800 shadow-xs flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex text-amber-400 text-sm">
+                <span>★★★★★</span>
+              </div>
+              <span class="text-[11px] text-stone-400">{{ rev.date }}</span>
+            </div>
+            <p class="text-xs sm:text-sm text-stone-700 dark:text-stone-300 leading-relaxed italic">
+              "{{ langService.isTamil() ? rev.tamilComment : rev.comment }}"
+            </p>
+          </div>
+
+          <div class="mt-4 pt-4 border-t border-stone-100 dark:border-zinc-800 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-950/70 text-emerald-800 dark:text-emerald-300 font-bold flex items-center justify-center text-sm">
+              {{ rev.name.charAt(0) }}
+            </div>
+            <div>
+              <div class="text-xs font-bold text-stone-900 dark:text-stone-100">{{ rev.name }}</div>
+              <div class="text-[11px] text-emerald-700 dark:text-emerald-400 flex items-center gap-1">
+                <span>📍</span> <span>{{ rev.location }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== "FIND OUR STORE / VISIT US" STRIP ==================== -->
+  <section class="py-12 bg-white dark:bg-zinc-900 border-t border-stone-200/80 dark:border-zinc-800 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="p-6 sm:p-8 rounded-3xl bg-stone-50 dark:bg-zinc-800/50 border border-stone-200 dark:border-zinc-700/60 flex flex-col md:flex-row items-center justify-between gap-6">
+
+        <div class="flex items-center gap-4 text-center md:text-left">
+          <div class="w-14 h-14 rounded-2xl bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 flex items-center justify-center text-2xl shrink-0 shadow-sm">
+            📍
+          </div>
+          <div>
+            <h3 class="font-serif text-2xl font-bold text-stone-900 dark:text-stone-100">
+              {{ langService.t('findStoreTitle') }}
+            </h3>
+            <p class="text-xs text-stone-600 dark:text-stone-300 mt-1 max-w-lg">
+              {{ langService.t('findStoreSub') }}
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 shrink-0">
+          <a
+            routerLink="/contact"
+            class="px-5 py-3 rounded-xl bg-[#1b4332] text-white hover:bg-[#2d6a4f] text-xs font-bold transition shadow-md">
+            {{ langService.t('getDirections') }}
+          </a>
+          <a
+            routerLink="/contact"
+            class="px-4 py-3 rounded-xl border border-stone-300 dark:border-zinc-700 text-stone-800 dark:text-stone-200 text-xs font-semibold hover:bg-stone-100 dark:hover:bg-zinc-800 transition">
+            Contact Nursery
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ==================== QUICK VIEW MODAL ==================== -->
+<app-quick-view-modal
+  *ngIf="selectedQuickViewProduct()"
+  [product]="selectedQuickViewProduct()!"
+  (close)="closeQuickView()">
+</app-quick-view-modal>
+
+<!-- ==================== VIDEO WALKTHROUGH MODAL ==================== -->
+<div *ngIf="isVideoModalOpen()" class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4">
+  <div class="fixed inset-0 bg-black/75 backdrop-blur-xs" (click)="closeVideoModal()"></div>
+
+  <div class="relative bg-white dark:bg-zinc-900 rounded-3xl max-w-2xl w-full p-6 shadow-2xl border border-stone-200 dark:border-zinc-800 z-10">
+    <div class="flex items-center justify-between pb-4 border-b border-stone-200 dark:border-zinc-800">
+      <div>
+        <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-stone-100">
+          {{ langService.t('howToOrderTitle') }}
+        </h3>
+        <p class="text-xs text-emerald-700 dark:text-emerald-400 font-tamil font-bold">
+          {{ langService.t('howToOrderTamilHeading') }}
+        </p>
+      </div>
+      <button (click)="closeVideoModal()" class="p-2 text-stone-400 hover:text-stone-600 rounded-full">
+        ✕
+      </button>
+    </div>
+
+    <!-- Video Preview Simulation -->
+    <div class="mt-4 rounded-2xl overflow-hidden aspect-video bg-black flex flex-col items-center justify-center p-6 text-center text-white relative">
+      <img
+        src="https://images.unsplash.com/photo-1592841200221-a6898f307baa?w=800&auto=format&fit=crop&q=80"
+        alt="Nursery Walkthrough"
+        class="absolute inset-0 w-full h-full object-cover opacity-60">
+      <div class="relative z-10 space-y-3">
+        <div class="w-16 h-16 rounded-full bg-emerald-500 text-white flex items-center justify-center text-2xl mx-auto shadow-2xl animate-pulse">
+          ▶
+        </div>
+        <h4 class="font-serif text-2xl font-bold">Babu Organic Garden — Ordering Guide</h4>
+        <p class="text-xs text-emerald-200 max-w-md mx-auto">
+          1. Choose plants cultivated organically for regional weather <br>
+          2. Select pack quantity or organic potting soil <br>
+          3. Fast doorstep dispatch across Chennai & Tamil Nadu
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-5 flex justify-end gap-3">
+      <a
+        href="https://api.whatsapp.com/send?text=Vanakkam%20Babu%20Organic%20Garden!%20I%20would%20like%20to%20order%20plants."
+        target="_blank"
+        rel="noreferrer"
+        class="px-5 py-2.5 rounded-xl bg-[#25D366] text-white text-xs font-bold hover:bg-[#20ba59] transition flex items-center gap-1.5">
+        <span>💬</span> <span>Order Directly via WhatsApp</span>
+      </a>
+      <button
+        (click)="closeVideoModal()"
+        class="px-4 py-2.5 rounded-xl bg-stone-100 dark:bg-zinc-800 text-stone-800 dark:text-stone-200 text-xs font-semibold">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== GIFT INQUIRY MODAL ==================== -->
+<div *ngIf="isGiftInquiryModalOpen()" class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4">
+  <div class="fixed inset-0 bg-black/60 backdrop-blur-xs" (click)="closeGiftModal()"></div>
+
+  <div class="relative bg-white dark:bg-zinc-900 rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-stone-200 dark:border-zinc-800 z-10">
+    <div class="flex items-center justify-between pb-4 border-b border-stone-200 dark:border-zinc-800">
+      <div>
+        <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-stone-100">
+          {{ langService.t('giftPromoTitle') }}
+        </h3>
+        <p class="text-xs text-emerald-700 dark:text-emerald-400">
+          Bulk eco-gifting for weddings, housewarmings & corporate events
+        </p>
+      </div>
+      <button (click)="closeGiftModal()" class="p-2 text-stone-400 hover:text-stone-600 rounded-full">
+        ✕
+      </button>
+    </div>
+
+    <div class="mt-4 space-y-3 text-xs text-stone-600 dark:text-stone-300">
+      <div class="p-3 rounded-2xl bg-stone-50 dark:bg-zinc-800 border border-stone-200 dark:border-zinc-700">
+        <div class="font-bold text-stone-900 dark:text-stone-100 mb-1">Volume Pricing Tiers:</div>
+        <ul class="space-y-1">
+          <li>• 25 - 49 Pots: <strong>₹75 / pot</strong> with custom thank you tags</li>
+          <li>• 50 - 99 Pots: <strong>₹68 / pot</strong> + Free Chennai delivery</li>
+          <li>• 100+ Pots: <strong>₹62 / pot</strong> + Custom printed Tamil/English message</li>
+        </ul>
+      </div>
+
+      <p class="leading-relaxed">
+        We prepare the pots 2 days before your function so they are freshly watered and presented in pristine condition.
+      </p>
+    </div>
+
+    <div class="mt-6 flex flex-col sm:flex-row gap-3">
+      <a
+        [href]="getWhatsAppGiftInquiry()"
+        target="_blank"
+        rel="noreferrer"
+        class="flex-1 py-3 rounded-xl bg-[#25D366] text-white text-xs font-bold text-center hover:bg-[#20ba59] transition flex items-center justify-center gap-2">
+        <span>💬</span> <span>Inquire on WhatsApp</span>
+      </a>
+      <a
+        routerLink="/contact"
+        (click)="closeGiftModal()"
+        class="py-3 px-4 rounded-xl border border-stone-300 dark:border-zinc-700 text-stone-800 dark:text-stone-200 text-xs font-semibold text-center hover:bg-stone-50 transition">
+        Contact Farm Team
+      </a>
+    </div>
+  </div>
+</div>

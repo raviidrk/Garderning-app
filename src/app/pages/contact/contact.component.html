@@ -1,0 +1,285 @@
+<div class="bg-[#fbf9f4] dark:bg-[#0c1812] min-h-screen py-10 transition-colors">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+
+    <!-- Hero Header -->
+    <div class="text-center max-w-2xl mx-auto space-y-2">
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/70 text-emerald-800 dark:text-emerald-300 text-xs font-bold">
+        <span>🌱</span> <span>A FARM SUSTAINABILITY</span>
+      </div>
+      <h1 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-stone-100">
+        {{ langService.t('contactTitle') }}
+      </h1>
+      <p class="text-xs sm:text-sm text-stone-500 dark:text-stone-400">
+        {{ langService.t('contactSub') }}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+      <!-- Left Column: Modern Contact Form & WhatsApp CTA -->
+      <div class="lg:col-span-7 bg-white dark:bg-zinc-900 rounded-3xl p-6 sm:p-10 border border-stone-200/90 dark:border-zinc-800 shadow-md space-y-6">
+
+        <div class="flex items-center justify-between pb-4 border-b border-stone-100 dark:border-zinc-800">
+          <div>
+            <h2 class="font-serif text-2xl font-bold text-stone-900 dark:text-stone-100">
+              {{ langService.isTamil() ? 'செய்தி அனுப்பவும்' : 'Send Us a Message' }}
+            </h2>
+            <p class="text-xs text-stone-500">
+              Our organic garden team will respond within 2-4 hours.
+            </p>
+          </div>
+          <div class="w-10 h-10 rounded-full overflow-hidden border border-emerald-500">
+            <img src="/images/logo.jpg" alt="Logo" class="w-full h-full object-cover">
+          </div>
+        </div>
+
+        <!-- Success notification -->
+        <div *ngIf="isSubmitted()" class="p-6 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-center space-y-3">
+          <div class="text-3xl">🌿</div>
+          <h3 class="font-serif text-xl font-bold text-emerald-900 dark:text-emerald-300">
+            Nandri! Message Received
+          </h3>
+          <p class="text-xs text-stone-600 dark:text-stone-300 leading-relaxed max-w-md mx-auto">
+            Our team at Babu Organic Garden has received your note. We will get back to you at <strong>{{ mobile() }}</strong> shortly.
+          </p>
+          <div class="pt-2 flex justify-center gap-3">
+            <a
+              [href]="getWhatsAppChatUrl()"
+              target="_blank"
+              rel="noreferrer"
+              class="px-5 py-2.5 rounded-xl bg-[#25D366] text-white text-xs font-bold hover:bg-[#20ba59] transition flex items-center gap-1.5 shadow-sm">
+              <span>💬</span> <span>Continue on WhatsApp</span>
+            </a>
+            <button
+              (click)="resetForm()"
+              class="px-4 py-2.5 rounded-xl border border-stone-300 dark:border-zinc-700 text-stone-700 dark:text-stone-300 text-xs font-semibold">
+              Send Another
+            </button>
+          </div>
+        </div>
+
+        <!-- Interactive Form -->
+        <form *ngIf="!isSubmitted()" (ngSubmit)="onSubmit()" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1">
+                {{ langService.t('fullName') }} <span class="text-rose-500">*</span>
+              </label>
+              <input
+                type="text"
+                required
+                placeholder="e.g. Anand Kumar"
+                [ngModel]="name()"
+                (ngModelChange)="name.set($event)"
+                name="name"
+                class="w-full text-xs sm:text-sm px-4 py-3 rounded-xl border border-stone-200 dark:border-zinc-700 bg-stone-50 dark:bg-zinc-800 text-stone-900 dark:text-stone-100 focus:outline-hidden focus:border-emerald-600">
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1">
+                {{ langService.t('mobileNumber') }} <span class="text-rose-500">*</span>
+              </label>
+              <input
+                type="tel"
+                required
+                placeholder="e.g. 9840012345"
+                [ngModel]="mobile()"
+                (ngModelChange)="mobile.set($event)"
+                name="mobile"
+                class="w-full text-xs sm:text-sm px-4 py-3 rounded-xl border border-stone-200 dark:border-zinc-700 bg-stone-50 dark:bg-zinc-800 text-stone-900 dark:text-stone-100 focus:outline-hidden focus:border-emerald-600">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1">
+                {{ langService.t('emailAddress') }}
+              </label>
+              <input
+                type="email"
+                placeholder="your.email@gmail.com"
+                [ngModel]="email()"
+                (ngModelChange)="email.set($event)"
+                name="email"
+                class="w-full text-xs sm:text-sm px-4 py-3 rounded-xl border border-stone-200 dark:border-zinc-700 bg-stone-50 dark:bg-zinc-800 text-stone-900 dark:text-stone-100 focus:outline-hidden focus:border-emerald-600">
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1">
+                Inquiry Topic
+              </label>
+              <select
+                [ngModel]="subject()"
+                (ngModelChange)="subject.set($event)"
+                name="subject"
+                class="w-full text-xs sm:text-sm px-4 py-3 rounded-xl border border-stone-200 dark:border-zinc-700 bg-stone-50 dark:bg-zinc-800 text-stone-900 dark:text-stone-100 focus:outline-hidden focus:border-emerald-600">
+                <option value="Organic Plant Care & Advice">Organic Plant Care & Advice</option>
+                <option value="Live Parcel Delivery & Tracking">Live Parcel Delivery Status</option>
+                <option value="Bulk Wedding Return Gifts">Bulk Return Gifts (50+ Pots)</option>
+                <option value="Terrace Organic Farm Setup">Terrace Organic Farm Setup</option>
+                <option value="Visit Farm Nursery">Visit Farm Nursery in Person</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1">
+              {{ langService.t('yourMessage') }}
+            </label>
+            <textarea
+              rows="4"
+              placeholder="Tell us about the plants you need, pot dimensions or any organic gardening question..."
+              [ngModel]="message()"
+              (ngModelChange)="message.set($event)"
+              name="message"
+              class="w-full text-xs sm:text-sm px-4 py-3 rounded-xl border border-stone-200 dark:border-zinc-700 bg-stone-50 dark:bg-zinc-800 text-stone-900 dark:text-stone-100 focus:outline-hidden focus:border-emerald-600"></textarea>
+          </div>
+
+          <div class="pt-2 flex flex-col sm:flex-row gap-3">
+            <button
+              type="submit"
+              class="flex-1 py-3.5 px-6 rounded-xl bg-[#1b4332] text-white hover:bg-[#2d6a4f] text-xs sm:text-sm font-bold transition shadow-md flex items-center justify-center gap-2">
+              <span>{{ langService.t('submitInquiry') }}</span>
+              <span>→</span>
+            </button>
+
+            <!-- Direct WhatsApp Click -->
+            <a
+              [href]="getWhatsAppChatUrl()"
+              target="_blank"
+              rel="noreferrer"
+              class="py-3.5 px-6 rounded-xl bg-[#25D366] text-white hover:bg-[#20ba59] text-xs sm:text-sm font-bold transition flex items-center justify-center gap-2 shadow-md">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+              </svg>
+              <span>{{ langService.t('chatWhatsApp') }}</span>
+            </a>
+          </div>
+        </form>
+
+      </div>
+
+      <!-- Right Column: Farm Nursery Information, Opening Hours & Location Map -->
+      <div class="lg:col-span-5 space-y-6">
+
+        <!-- Store Details Card -->
+        <div class="bg-white dark:bg-zinc-900 rounded-3xl p-6 sm:p-8 border border-stone-200/90 dark:border-zinc-800 shadow-md space-y-5">
+          <div class="flex items-center gap-3">
+            <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-emerald-500 shadow-md shrink-0">
+              <img src="/images/logo.jpg" alt="Babu Organic Garden" class="w-full h-full object-cover">
+            </div>
+            <div>
+              <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-stone-100">
+                BABU ORGANIC GARDEN
+              </h3>
+              <p class="text-xs text-emerald-700 dark:text-emerald-400 font-semibold">
+                A Farm Sustainability
+              </p>
+            </div>
+          </div>
+
+          <div class="space-y-3.5 text-xs text-stone-600 dark:text-stone-300 pt-2 border-t border-stone-100 dark:border-zinc-800">
+            <div class="flex items-start gap-3">
+              <span class="text-base text-rose-500">📍</span>
+              <div>
+                <strong class="block text-stone-900 dark:text-stone-100 font-bold">Organic Farm & Nursery:</strong>
+                <span>Babu Organic Garden & Farm, Chennai, Tamil Nadu, India</span>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <span class="text-base text-emerald-600">💬</span>
+              <div>
+                <strong class="block text-stone-900 dark:text-stone-100 font-bold">WhatsApp & Helpline Support:</strong>
+                <span class="text-stone-600 dark:text-stone-300">Click below or use WhatsApp button for instant plant care guidance</span>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <span class="text-base text-sky-600">✉️</span>
+              <div>
+                <strong class="block text-stone-900 dark:text-stone-100 font-bold">Email Support:</strong>
+                <a href="mailto:support@babuorganicgarden.com" class="hover:text-emerald-600 font-medium text-stone-900 dark:text-stone-100">
+                  support@babuorganicgarden.com
+                </a>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <span class="text-base text-amber-500">⏰</span>
+              <div>
+                <strong class="block text-stone-900 dark:text-stone-100 font-bold">Visiting Hours:</strong>
+                <span class="font-medium text-emerald-700 dark:text-emerald-400">Open All 7 Days: 8:00 AM – 8:30 PM</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stylized Location Map Card -->
+        <div class="bg-white dark:bg-zinc-900 rounded-3xl p-6 border border-stone-200/90 dark:border-zinc-800 shadow-md space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-serif text-lg font-bold text-stone-900 dark:text-stone-100">
+              Farm & Nursery Location
+            </h3>
+            <span class="text-xs text-stone-400">Tamil Nadu</span>
+          </div>
+
+          <!-- Stylized Visual Map Preview -->
+          <div class="relative rounded-2xl overflow-hidden aspect-video bg-emerald-950/20 border border-stone-200 dark:border-zinc-700 flex flex-col justify-between p-4 group">
+            <div class="absolute inset-0 bg-gradient-to-br from-stone-100 via-emerald-50 to-stone-200 dark:from-zinc-800 dark:via-zinc-900 dark:to-zinc-800 flex items-center justify-center">
+              <div class="w-full h-full opacity-30 flex items-center justify-center">
+                <svg viewBox="0 0 400 200" class="w-full h-full stroke-emerald-600/30 dark:stroke-emerald-400/20" fill="none" stroke-width="2">
+                  <path d="M0 50 Q100 80 200 40 T400 70"/>
+                  <path d="M50 0 Q150 100 250 80 T350 200"/>
+                  <path d="M200 0 L200 200" stroke-dasharray="4"/>
+                  <circle cx="210" cy="110" r="12" fill="#1b4332" fill-opacity="0.2"/>
+                </svg>
+              </div>
+            </div>
+
+            <div class="relative z-10 flex items-center justify-between text-xs">
+              <span class="bg-white/90 dark:bg-zinc-900/90 px-2.5 py-1 rounded-md font-bold text-stone-700 dark:text-stone-200 shadow-xs">
+                Sustainable Organic Farm & Nursery
+              </span>
+            </div>
+
+            <!-- Central Location Pin with Logo -->
+            <div class="relative z-10 flex flex-col items-center justify-center my-auto">
+              <div class="relative flex items-center justify-center">
+                <span class="animate-ping absolute inline-flex h-12 w-12 rounded-full bg-emerald-400 opacity-75"></span>
+                <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-xl">
+                  <img src="/images/logo.jpg" alt="Babu Organic Garden" class="w-full h-full object-cover">
+                </div>
+              </div>
+              <div class="mt-2 bg-[#1b4332] text-white text-xs font-bold px-3.5 py-1 rounded-full shadow-lg">
+                Babu Organic Garden
+              </div>
+              <div class="text-[10px] text-stone-600 dark:text-stone-300 font-semibold bg-white/90 dark:bg-zinc-900/90 px-2.5 py-0.5 rounded-md mt-1 shadow-xs">
+                A Farm Sustainability
+              </div>
+            </div>
+
+            <div class="relative z-10 pt-2 flex justify-end">
+              <a
+                href="https://maps.google.com/?q=Babu+Organic+Garden"
+                target="_blank"
+                rel="noreferrer"
+                class="px-4 py-2 rounded-xl bg-[#1b4332] text-white text-xs font-bold hover:bg-[#2d6a4f] transition shadow-md flex items-center gap-1.5">
+                <span>Open in Google Maps</span>
+                <span>↗</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="text-[11px] text-stone-500 flex items-center justify-between">
+            <span>Freshly propagated plants & organic nursery beds</span>
+            <span>Easy Parking & Farm Access</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>

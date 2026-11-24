@@ -1,0 +1,255 @@
+<div class="bg-[#fbf9f4] dark:bg-[#0c1812] min-h-screen py-10 transition-colors">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+
+    <!-- Header & Lookup Form Card -->
+    <div class="bg-white dark:bg-zinc-900 rounded-3xl p-6 sm:p-10 border border-stone-200/90 dark:border-zinc-800 shadow-md space-y-6">
+
+      <div class="text-center max-w-xl mx-auto space-y-2">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/70 text-emerald-800 dark:text-emerald-300 text-xs font-bold">
+          <span>📦</span> <span>NO-LOGIN TRACKING</span>
+        </div>
+        <h1 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-stone-100">
+          {{ langService.t('trackOrderTitle') }}
+        </h1>
+        <p class="text-xs sm:text-sm text-stone-500 dark:text-stone-400">
+          {{ langService.t('trackOrderSub') }}
+        </p>
+      </div>
+
+      <!-- Quick Demo Order Pills -->
+      <div class="flex flex-wrap items-center justify-center gap-2 pt-1 text-xs">
+        <span class="text-stone-400 font-medium">Quick Demo Test:</span>
+        <button
+          type="button"
+          (click)="loadDemo('BOG-2026-8841', '9840012345')"
+          class="px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 font-semibold border border-emerald-200 dark:border-emerald-800 hover:bg-emerald-100 transition">
+          #BOG-2026-8841 (Out for Delivery • Anna Nagar)
+        </button>
+        <button
+          type="button"
+          (click)="loadDemo('BOG-2026-9102', '9840054321')"
+          class="px-3 py-1 rounded-full bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 font-semibold border border-amber-200 dark:border-amber-800 hover:bg-amber-100 transition">
+          #BOG-2026-9102 (Dispatched • Besant Nagar)
+        </button>
+      </div>
+
+      <!-- Lookup Inputs -->
+      <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 max-w-2xl mx-auto pt-2">
+        <div class="sm:col-span-5">
+          <label class="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1">Order ID</label>
+          <input
+            type="text"
+            [placeholder]="langService.t('orderIdPlaceholder')"
+            [ngModel]="orderIdInput()"
+            (ngModelChange)="orderIdInput.set($event)"
+            (keydown.enter)="trackOrder()"
+            class="w-full text-xs sm:text-sm px-4 py-3 rounded-xl border border-stone-200 dark:border-zinc-700 bg-stone-50 dark:bg-zinc-800 text-stone-900 dark:text-stone-100 focus:outline-hidden focus:border-emerald-600 font-mono">
+        </div>
+
+        <div class="sm:col-span-4">
+          <label class="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1">Mobile No</label>
+          <input
+            type="text"
+            [placeholder]="langService.t('mobilePlaceholder')"
+            [ngModel]="mobileInput()"
+            (ngModelChange)="mobileInput.set($event)"
+            (keydown.enter)="trackOrder()"
+            class="w-full text-xs sm:text-sm px-4 py-3 rounded-xl border border-stone-200 dark:border-zinc-700 bg-stone-50 dark:bg-zinc-800 text-stone-900 dark:text-stone-100 focus:outline-hidden focus:border-emerald-600 font-mono">
+        </div>
+
+        <div class="sm:col-span-3 flex items-end">
+          <button
+            type="button"
+            (click)="trackOrder()"
+            class="w-full py-3 px-4 rounded-xl bg-[#1b4332] text-white hover:bg-[#2d6a4f] text-xs sm:text-sm font-bold transition shadow-md flex items-center justify-center gap-1.5 active:scale-98">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            <span>{{ langService.t('searchOrderBtn') }}</span>
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage()" class="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900 text-rose-700 dark:text-rose-300 text-xs text-center">
+        {{ errorMessage() }}
+      </div>
+
+    </div>
+
+    <!-- Active Order Results Display -->
+    <div *ngIf="activeOrder()" class="space-y-6">
+
+      <!-- Order Top Summary Card -->
+      <div class="bg-white dark:bg-zinc-900 rounded-3xl p-6 sm:p-8 border border-stone-200/90 dark:border-zinc-800 shadow-md">
+        <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-stone-100 dark:border-zinc-800 gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-xl font-bold text-[#1b4332] dark:text-emerald-400">
+                #{{ activeOrder()?.orderId }}
+              </span>
+              <span class="text-xs bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 font-bold px-2.5 py-0.5 rounded-full">
+                {{ langService.isTamil() ? activeOrder()?.tamilStatusText : activeOrder()?.statusText }}
+              </span>
+            </div>
+            <p class="text-xs text-stone-500 mt-1">
+              Placed on {{ activeOrder()?.orderDate }} • Placed by <strong>{{ activeOrder()?.customerName }}</strong>
+            </p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-3">
+            <a
+              [href]="getWhatsAppSupportUrl()"
+              target="_blank"
+              rel="noreferrer"
+              class="px-4 py-2 rounded-xl bg-[#25D366] text-white hover:bg-[#20ba59] text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+              <span>💬</span> <span>Ask Garden Team on WhatsApp</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Key Logistics Info Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 text-xs">
+          <div class="space-y-1">
+            <span class="text-stone-400 uppercase tracking-wider font-semibold text-[10px]">Estimated Delivery</span>
+            <div class="font-serif text-lg font-bold text-stone-900 dark:text-stone-100">
+              {{ activeOrder()?.estimatedDelivery }}
+            </div>
+            <div class="text-emerald-600 font-medium">Safe live packing guaranteed</div>
+          </div>
+
+          <div class="space-y-1">
+            <span class="text-stone-400 uppercase tracking-wider font-semibold text-[10px]">Logistics Partner</span>
+            <div class="font-bold text-stone-900 dark:text-stone-100">
+              {{ activeOrder()?.courierName }}
+            </div>
+            <div class="text-stone-500 font-mono">AWB: {{ activeOrder()?.trackingNumber }}</div>
+          </div>
+
+          <div class="space-y-1">
+            <span class="text-stone-400 uppercase tracking-wider font-semibold text-[10px]">Delivery Address</span>
+            <div class="font-semibold text-stone-800 dark:text-stone-200">
+              {{ activeOrder()?.deliveryAddress?.street }}
+            </div>
+            <div class="text-stone-500">
+              {{ activeOrder()?.deliveryAddress?.area }}, {{ activeOrder()?.deliveryAddress?.city }} - {{ activeOrder()?.deliveryAddress?.pincode }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Interactive Timeline Card -->
+      <div class="bg-white dark:bg-zinc-900 rounded-3xl p-6 sm:p-8 border border-stone-200/90 dark:border-zinc-800 shadow-md">
+        <h2 class="font-serif text-2xl font-bold text-stone-900 dark:text-stone-100 mb-6">
+          {{ langService.isTamil() ? 'நேரடி பார்சல் நிலை' : 'Live Plant Packaging & Delivery Timeline' }}
+        </h2>
+
+        <div class="relative pl-6 sm:pl-8 space-y-8 before:content-[''] before:absolute before:left-3 sm:before:left-4 before:top-3 before:bottom-3 before:w-0.5 before:bg-stone-200 dark:before:bg-zinc-800">
+
+          <div *ngFor="let step of activeOrder()?.timeline" class="relative group">
+
+            <!-- Timeline Marker Icon -->
+            <div
+              [ngClass]="{
+                'bg-[#1b4332] text-white shadow-emerald-950/20 shadow-md ring-4 ring-emerald-100 dark:ring-emerald-950/60': step.status === 'completed',
+                'bg-emerald-500 text-white animate-pulse ring-4 ring-emerald-300 dark:ring-emerald-900': step.status === 'current',
+                'bg-stone-200 dark:bg-zinc-700 text-stone-500 dark:text-stone-400': step.status === 'upcoming'
+              }"
+              class="absolute -left-6 sm:-left-8 top-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all">
+              <span *ngIf="step.status === 'completed'">✓</span>
+              <span *ngIf="step.status === 'current'">●</span>
+              <span *ngIf="step.status === 'upcoming'">○</span>
+            </div>
+
+            <!-- Content -->
+            <div class="bg-stone-50/70 dark:bg-zinc-800/40 rounded-2xl p-4 sm:p-5 border border-stone-200/60 dark:border-zinc-700/60 space-y-1.5">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                <h3 class="font-bold text-sm sm:text-base text-stone-900 dark:text-stone-100">
+                  {{ langService.isTamil() ? step.tamilTitle : step.title }}
+                </h3>
+                <span class="text-xs font-mono font-semibold text-emerald-700 dark:text-emerald-400">
+                  {{ step.date }} • {{ step.time }}
+                </span>
+              </div>
+
+              <p class="text-xs text-stone-600 dark:text-stone-300 leading-relaxed">
+                {{ langService.isTamil() ? step.tamilDescription : step.description }}
+              </p>
+
+              <div class="text-[11px] text-stone-400 flex items-center gap-1 pt-1">
+                <span>📍</span> <span>{{ step.location }}</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Itemized Bill & Products Card -->
+      <div class="bg-white dark:bg-zinc-900 rounded-3xl p-6 sm:p-8 border border-stone-200/90 dark:border-zinc-800 shadow-md space-y-6">
+        <h2 class="font-serif text-2xl font-bold text-stone-900 dark:text-stone-100 pb-3 border-b border-stone-100 dark:border-zinc-800">
+          {{ langService.t('orderSummary') }}
+        </h2>
+
+        <!-- Items list -->
+        <div class="divide-y divide-stone-100 dark:divide-zinc-800">
+          <div *ngFor="let item of activeOrder()?.items" class="py-4 first:pt-0 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+              <img
+                [src]="item.image"
+                [alt]="item.name"
+                class="w-14 h-14 rounded-xl object-cover bg-stone-100 border border-stone-200 dark:border-zinc-800 shrink-0">
+              <div>
+                <h4 class="text-xs sm:text-sm font-bold text-stone-900 dark:text-stone-100">
+                  {{ item.name }}
+                </h4>
+                <p class="text-xs text-emerald-800 dark:text-emerald-400 font-tamil">
+                  {{ item.tamilName }}
+                </p>
+                <div class="text-[11px] text-stone-500 mt-0.5">
+                  {{ item.pack }} • Qty: {{ item.quantity }}
+                </div>
+              </div>
+            </div>
+
+            <div class="text-right">
+              <div class="font-bold text-xs sm:text-sm text-stone-900 dark:text-stone-100">
+                ₹{{ item.price * item.quantity }}
+              </div>
+              <div class="text-[10px] text-stone-400">
+                ₹{{ item.price }} each
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Totals calculation -->
+        <div class="pt-4 border-t border-stone-100 dark:border-zinc-800 max-w-xs ml-auto space-y-1.5 text-xs text-stone-600 dark:text-stone-300">
+          <div class="flex justify-between">
+            <span>Subtotal</span>
+            <span class="font-semibold text-stone-900 dark:text-stone-100">₹{{ activeOrder()?.subtotal }}</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Delivery to Chennai</span>
+            <span class="font-bold text-emerald-600 dark:text-emerald-400">
+              {{ (activeOrder()?.deliveryCharge ?? 0) === 0 ? 'FREE' : '₹' + activeOrder()?.deliveryCharge }}
+            </span>
+          </div>
+          <div *ngIf="(activeOrder()?.discount ?? 0) > 0" class="flex justify-between text-emerald-700 dark:text-emerald-400">
+            <span>Discount Applied</span>
+            <span class="font-bold">-₹{{ activeOrder()?.discount }}</span>
+          </div>
+          <div class="pt-2 border-t border-stone-200 dark:border-zinc-800 flex justify-between text-sm sm:text-base font-bold text-stone-900 dark:text-stone-100">
+            <span>Total Paid</span>
+            <span class="font-serif text-lg text-emerald-700 dark:text-emerald-400">₹{{ activeOrder()?.total }}</span>
+          </div>
+          <p class="text-[10px] text-right text-stone-400 pt-1">
+            Payment: {{ activeOrder()?.paymentMethod }}
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

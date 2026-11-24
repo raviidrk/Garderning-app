@@ -1,1 +1,138 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-tamil: 'Noto Sans Tamil', 'Plus Jakarta Sans', sans-serif;
+    
+    --forest-950: #0a160f;
+    --forest-900: #12261b;
+    --forest-800: #1b4332;
+    --forest-700: #2d6a4f;
+    --forest-600: #40916c;
+    --forest-500: #52b788;
+    --forest-400: #74c69d;
+    --forest-100: #d8f3dc;
+    --forest-50: #f0fdf4;
+
+    --cream-50: #fbf9f4;
+    --cream-100: #f7f4ec;
+    --cream-200: #eee9dc;
+    --cream-300: #ddd6c3;
+
+    --terracotta-700: #8c3f20;
+    --terracotta-600: #a34e2c;
+    --terracotta-500: #b85d38;
+    --terracotta-400: #c86d51;
+    --terracotta-100: #faebe5;
+  }
+
+  body {
+    font-family: var(--font-sans);
+  }
+
+  h1, h2, h3, .font-serif {
+    font-family: var(--font-serif);
+  }
+
+  .tamil-text {
+    font-family: var(--font-tamil);
+  }
+}
+
+/* Animations */
+@keyframes floatLeafSlow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(6deg);
+  }
+}
+
+@keyframes floatLeafReverse {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(14px) rotate(-8deg);
+  }
+}
+
+@keyframes pulseSubtle {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-float-leaf {
+  animation: floatLeafSlow 7s ease-in-out infinite;
+}
+
+.animate-float-leaf-reverse {
+  animation: floatLeafReverse 9s ease-in-out infinite;
+}
+
+.animate-pulse-subtle {
+  animation: pulseSubtle 3s ease-in-out infinite;
+}
+
+/* Glassmorphism */
+.glass-header {
+  background-color: rgba(251, 249, 244, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.dark .glass-header {
+  background-color: rgba(12, 24, 18, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.glass-card {
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.dark .glass-card {
+  background-color: rgba(20, 39, 31, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f7f4ec;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #12261b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #74c69d;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #40916c;
+}

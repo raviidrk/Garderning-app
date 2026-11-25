@@ -23,7 +23,7 @@ export class LanguageService {
     en: {
       siteTitle: 'Babu Organic Garden',
       siteSubtitle: 'A Farm Sustainability',
-      announcement: '🌿 Live Plant Parcel Delivery Resumed Across Tamil Nadu | Free Delivery on ₹499+',
+      announcement: '🌿 Live Plant Parcel Delivery Across Tamil Nadu | Free Delivery on ₹499+',
       navHome: 'Home',
       navShop: 'Shop Catalog',
       navOrders: 'My Orders',
